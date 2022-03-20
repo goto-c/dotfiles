@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 
 if [[ 'xdotfiles' != x$(basename ${DOTFILES:=$HOME/dotfiles}) ]]; then
   echo "install_base.zsh might not be placed in the right place."
@@ -32,23 +32,8 @@ function update_git_repo() {
   done
 }
 
-if ! command -v 'python' &>/dev/null || [[ `python -V` =~ 'Python 2.*' ]]; then
-  error 'No python command found'
-  if checkyes 'do you want to create a systemwide symlink to python3?'; then
-    sudo ln -s "$(which python3)" /usr/bin/python
-  fi
-fi
-
-# install haskel interpreter
-if [ ! -d "$XDG_DATA_HOME"/ghcup ] || ! command -v pandoc &>/dev/null; then
-  info 'Installing `cabal` for haskel and `pandoc`'
-  warning 'Answer N->Y->Y to the questions'
-  curl https://get-ghcup.haskell.org | sh
-  cabal --version
-  cabal new-update
-  cabal new-install --overwrite-policy=always pandoc pandoc-citeproc pandoc-crossref
-fi
-info 'Haskell installation done'
+alias python='python3'
+alias pip='pip3'
 
 # install zsh shell utils
 mkdir -p "$XDG_DATA_HOME"/zsh
@@ -222,13 +207,13 @@ checkcommand () {
 # null-ls
 checkcommand 'stylua' 'cargo install stylua'
 checkcommand 'prettier' 'npm install --save-dev -g prettier'
-checkcommand 'autopep8' 'pip install --user --upgrade autopep8'
-checkcommand 'flake8' 'pip install --user --upgrade flake8'
-checkcommand 'pylint' 'pip install --user --upgrade pylint'
+checkcommand 'autopep8' 'pip3 install --user --upgrade autopep8'
+checkcommand 'flake8' 'pip3 install --user --upgrade flake8'
+checkcommand 'pylint' 'pip3 install --user --upgrade pylint'
 checkcommand 'emmet-ls' 'npm install -g emmet-ls'
 # telescope
 if checkyes 'Install telescope dependencies?'; then
-  checkcommand 'ueberzug' 'pip install ueberzug'
+  checkcommand 'ueberzug' 'pip3 install ueberzug'
   checkcommand 'pdftoppm' 'sudo apt install poppler-utils || yay -S poppler'
   checkcommand 'rg' 'cargo install ripgrep || echo "see: https://www.linode.com/docs/guides/ripgrep-linux-installation/" && exit 1'
   checkcommand 'ffmpegthumbnailer' 'sudo apt install ffmpegthumbnailer || yay -S ffmpegthumbnailer'
