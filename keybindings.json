@@ -1,0 +1,28 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "command": "vscode-neovim.compositeEscape1",
+        "key": "j",
+        "when": "neovim.mode == insert && editorTextFocus",
+        "args": "j"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.togglePanel",
+        "when": "vim.mode != 'SearchInProgressMode' && vim.mode != 'Insert'"
+    },
+    {
+        "key": "Shift+k",
+        "command": "workbench.action.nextEditor",
+        "when": "vim.mode != insert"
+    },
+    {
+        "key": "Shift+j",
+        "command": "workbench.action.previousEditor",
+        "when": "vim.mode != insert"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "workbench.action.closeActiveEditor",
+    }
+]
